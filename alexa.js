@@ -75,5 +75,24 @@ alexaApp.intent("pptprevslide", {
   }
 );
 
+alexaApp.intent("ppttoslide", {
+  },
+  function(request, response) {
+	console.log('to slide');
+
+	let slidenumber = request.slot('slidenumber');
+	console.log('slidenumber: ' + slidenumber);
+
+	requestppt.get('http://localhost:3000/?slide=' + slidenumber,function(err,res,body){
+		if(err) {//TODO: handle err
+		}
+		if(res.statusCode !== 200 ) {//etc
+			//TODO Do something with response
+		}
+	});
+
+    response.say("to slide");
+  }
+);
 app.listen(PORT);
 console.log("Alexa PowerPoint Listening on port " + PORT + ", try http://localhost:" + PORT + "/test");
